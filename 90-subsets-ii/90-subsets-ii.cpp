@@ -10,33 +10,25 @@ public:
             return ;
         }
         
-        
-        
-       // Exclude 
-        
-         helper(nums, startIdx +1 ,currSet ,res, false) ;
-         
-         if( startIdx>0 && nums[startIdx] == nums[startIdx -1] && (!prev))
-             return ;
-         
-    //Include     
+         //Include     
         currSet.push_back(nums[startIdx]) ;
         
         
-        helper(nums,startIdx+1, currSet ,res,true)  ;
+        helper(nums,startIdx+1, currSet ,res,false)  ;
         
-       
-       
-       
         currSet.pop_back() ;
+       
+         
+        if( startIdx>0 && nums[startIdx] == nums[startIdx -1] && (!prev))
+             return ;
         
+       // Exclude 
         
+         helper(nums, startIdx +1 ,currSet ,res, true) ;
+         
+        
+              
     }
-    
-    
-    
-    
-    
     
     
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {

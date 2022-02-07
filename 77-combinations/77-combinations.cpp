@@ -4,13 +4,18 @@ public:
     void helper(int startIdx ,int n, int k, vector<int>&currSet, vector<vector<int>>&res){
         
         //Base Case 
+        
+        //Positive
         if(k==0) {
             res.push_back(currSet) ;
             return ;
         }
         
+        //Negative 
         if(startIdx>n) return ;
         
+      
+        //Pruning Step 
         if(n-startIdx+1 < k) return ;
         
         //Exlcude

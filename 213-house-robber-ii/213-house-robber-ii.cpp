@@ -24,12 +24,12 @@ public:
         if(n==1) return nums[0] ;
    
         
-    vector<int>dp1(nums.size(),-1) ;
+    vector<int>dp(nums.size(),-1) ;
        
         
-        int r1 = robHelper(nums,0,n-2,dp1) ;
-        vector<int>dp2(nums.size(),-1) ;
-        int r2 = robHelper(nums,1,n-1,dp2) ;
+        int r1 = robHelper(nums,0,n-2,dp) ;
+         fill(dp.begin(), dp.end(), -1);
+        int r2 = robHelper(nums,1,n-1,dp) ;
         
      return max(r1,r2);
         

@@ -1,11 +1,11 @@
 class Solution {
 public:
     
-    int maxsum ;
+     int maxsum ;
    
     int helper(vector<int>& nums, vector<int>&dp, int n)
 	{
-		if (dp[n]<INT_MAX)
+		if (dp[n]!=INT_MAX)
 			return dp[n];
 		if (n == 0)
 			dp[n] = nums[0];
@@ -21,7 +21,8 @@ public:
 				dp[n] = nums[n];
 			}
 		}
-		if (dp[n] > maxsum)
+		
+        if (dp[n] > maxsum)
 			maxsum = dp[n];
         
 		return dp[n];

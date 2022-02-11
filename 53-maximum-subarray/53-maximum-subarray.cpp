@@ -5,7 +5,7 @@ public:
    
     int helper(vector<int>& nums, vector<int>&dp, int n)
 	{
-		if (dp[n]!=INT_MAX)
+		if (dp[n]!=-1)
 			return dp[n];
 		if (n == 0)
 			dp[n] = nums[0];
@@ -32,7 +32,7 @@ public:
        
     int maxSubArray(vector<int>& nums) {
         maxsum = INT_MIN;
-		vector<int>dp(nums.size(),INT_MAX) ;
+		vector<int>dp(nums.size(),-1) ;
         
 		
 		helper(nums, dp, nums.size() - 1);

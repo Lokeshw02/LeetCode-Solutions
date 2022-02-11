@@ -15,12 +15,10 @@ public:
         if(op1>0) ans += helper(i+1,s,dp) ;
         if(op1>0 && op2>0 && op2<=26) ans+= helper(i+2,s,dp) ;
         
-        return dp[i] = ans ;
+        dp[i] = ans;
+        
+        return dp[i] ;
     }
-    
-    
-    
-    
     
     
     

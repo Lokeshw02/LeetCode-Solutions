@@ -13,7 +13,7 @@ public:
         dp2[0] = 0 ;
         
         dp1[1] = max(-prices[0],-prices[1]) ;
-        dp2[1] = max(dp2[0], dp1[0]+prices[1]) ;
+        dp2[1] = max(0, prices[1] - prices[0]) ;
         
         for(int i = 2; i<n ;i++){
             

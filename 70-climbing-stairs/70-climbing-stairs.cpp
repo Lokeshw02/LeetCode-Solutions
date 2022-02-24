@@ -10,19 +10,16 @@ public:
         
         if(dp[start] != -1) return dp[start]  ;
         
-        int res = climbHelper(start+1,n,dp) ;
+        int res = climbHelper(start+2,n,dp) ;
         
-        res += climbHelper(start+2,n,dp) ;
+        res += climbHelper(start+1,n,dp) ;
         
         dp[start] = res ;
         
         return dp[start] ;
         
     }
-    
-    
-    
-    
+     
     
     int climbStairs(int n) {
        

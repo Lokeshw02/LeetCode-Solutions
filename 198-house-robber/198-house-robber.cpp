@@ -1,6 +1,8 @@
 class Solution {
 public:
-   int robHelper(vector<int>&nums,int startIdx,vector<int>&dp){
+    
+    int robHelper(vector<int>&nums,int startIdx,vector<int>&dp){
+      
        int n = nums.size();
       
        if(startIdx>=n) return 0;
@@ -12,14 +14,18 @@ public:
        int money2 = robHelper(nums,startIdx+1,dp);
       
        dp[startIdx] = max(money1,money2);
+       
         return dp[startIdx];
    }
-   int rob(vector<int>& nums) {
-    int n = nums.size();
-       vector<int>dp(n,-1);
-       return robHelper(nums,0,dp);
-   }
+    
+    
+    int rob(vector<int>& nums) {
+        
+        vector<int>dp(nums.size(),-1) ;
+        
+        return robHelper(nums,0,dp) ;
+        
+        
+        
+    }
 };
-
-
-

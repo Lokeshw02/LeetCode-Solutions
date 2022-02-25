@@ -11,8 +11,10 @@ public:
         dp1[0] = -prices[0] ;
         
         dp2[0] = 0 ;
-        
+       
+        //Maximum Profit you can make till i th day considering that the last transaction in Buy 
         dp1[1] = max(-prices[0],-prices[1]) ;
+        ////Maximum Profit you can make till i th day considering that the last transaction in Sell  
         dp2[1] = max(0, prices[1] - prices[0]) ;
         
         for(int i = 2; i<n ;i++){

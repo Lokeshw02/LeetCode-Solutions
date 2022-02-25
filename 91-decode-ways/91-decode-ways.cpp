@@ -12,7 +12,9 @@ public:
             op2 = op1*10 + (s[i+1] - '0') ;
             
         }
+        
         if(op1>0) ans += helper(i+1,s,dp) ;
+        
         if(op1>0 && op2>0 && op2<=26) ans+= helper(i+2,s,dp) ;
         
         dp[i] = ans;
@@ -20,10 +22,10 @@ public:
         return dp[i] ;
     }
     
-    
+     
     
     int numDecodings(string &s) {
-       vector<int> dp(101,-1) ;
+       vector<int> dp(s.size(),-1) ;
        return helper(0,s,dp) ;   
     }
 };

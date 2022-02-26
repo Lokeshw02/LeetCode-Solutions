@@ -13,17 +13,23 @@ public:
         
         if(nums[i]<prev && lastUp) return dp[i][lastUp] = 1 + helper(nums,i+1,nums[i],false,dp) ;
         
-        return dp[i][lastUp] = helper(nums,i+1,nums[i],lastUp,dp) ; 
+        
+        dp[i][lastUp] = helper(nums,i+1,nums[i],lastUp,dp) ; 
+        
+        return  dp[i][lastUp] ;
         
     }
     
     
     int wiggleMaxLength(vector<int>& nums) {
+        
         vector<vector<int>>dp(nums.size(),vector<int>(2,-1)) ;
         
         int longestInc = 1+helper(nums,0,nums[0],false,dp);
         int longestDec = 1+helper(nums,0,nums[0],true,dp);
         
         return max(longestInc, longestDec);
+        
+    
     }
 };

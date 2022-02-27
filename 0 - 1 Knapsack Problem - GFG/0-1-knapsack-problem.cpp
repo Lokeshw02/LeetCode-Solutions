@@ -10,7 +10,8 @@ class Solution
      
     public:
     //Function to return max value that can be put in knapsack of capacity W.
-    int dp[1001][1001];
+    int dp[101][101];
+    
     int solve(int w,int wt[],int val[],int n){
         if(n==0 || w==0)return 0;
         if(dp[w][n]!=-1){
@@ -18,8 +19,9 @@ class Solution
         }
         if(wt[n-1]>w)
             return  dp[w][n]= solve(w,wt,val,n-1);
-        return dp[w][n]=max(val[n-1]+solve(w-  wt[n-1],wt,val,n-1),solve(w,wt,val,n-1));
+        return dp[w][n]=max(val[n-1]+solve( w-  wt[n-1],wt,val,n-1),solve(w,wt,val,n-1));
     }
+    
     int knapSack(int W, int wt[], int val[], int n) 
     { 
         memset(dp,-1,sizeof(dp)); 

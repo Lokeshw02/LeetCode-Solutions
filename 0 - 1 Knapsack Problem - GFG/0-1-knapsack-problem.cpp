@@ -8,7 +8,7 @@ class Solution
 {
     public:
     //Function to return max value that can be put in knapsack of capacity W.
-    int dp[101][101];
+    int dp[1001][1001];
     
     int solve(int w,int wt[],int val[],int n){
         if(n==0 || w==0)return 0;

@@ -1,35 +1,34 @@
 class Solution {
 public:
-    
-    
-    int helper(vector<int>&nums,int i,int prev, bool lastUp, vector<vector<int>>&dp){
-        int n = nums.size() ;
+    int wiggleMaxLength(vector<int>& arr) {
+        int ans = 0;
+        int n = arr.size();
+        vector<int> dp(n,1);
         
-        if(i>=n) return 0 ;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(dp[j] % 2 == 0){
+                    if(arr[j] > arr[i]) dp[i] = max(dp[i],1 + dp[j]);
+                }else{
+                    if(arr[j] < arr[i]) dp[i] = max(dp[i],1 + dp[j]);
+                }
+            }
+            ans = max(ans,dp[i]);
+        }
         
-        if(dp[i][lastUp] != -1) return dp[i][lastUp] ;
+        for(auto &it : dp) it = 1; // resetting the array so we can reuse it
         
-        if(nums[i]>prev && !lastUp) return dp[i][lastUp] = 1 + helper(nums,i+1,nums[i],true,dp) ;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(dp[j] % 2 == 0){
+                    if(arr[j] < arr[i]) dp[i] = max(dp[i],1 + dp[j]);
+                }else{
+                    if(arr[j] > arr[i]) dp[i] = max(dp[i],1 + dp[j]);
+                }
+            }
+            ans = max(ans,dp[i]);
+        }        
         
-        if(nums[i]<prev && lastUp) return dp[i][lastUp] = 1 + helper(nums,i+1,nums[i],false,dp) ;
-        
-        
-        dp[i][lastUp] = helper(nums,i+1,nums[i],lastUp,dp) ; 
-        
-        return  dp[i][lastUp] ;
-        
-    }
-    
-    
-    int wiggleMaxLength(vector<int>& nums) {
-        
-        vector<vector<int>>dp(nums.size(),vector<int>(2,-1)) ;
-        
-        int longestInc = 1+helper(nums,0,nums[0],false,dp);
-        int longestDec = 1+helper(nums,0,nums[0],true,dp);
-        
-        return max(longestInc, longestDec);
-        
-    
+        return ans;
     }
 };

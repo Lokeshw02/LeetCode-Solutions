@@ -12,27 +12,22 @@
 class Solution {
 public:
     
-    int ans, cnt = 0 ;
     
-    void inorder(TreeNode* root,int k)
-    {
-     if(root == NULL || cnt>k) return ;
+     int find(TreeNode* root, int &k) {
+          
+            if (!root) return -1;
+            // We do an inorder traversal here. 
+            int k1 = find(root->left, k);
+            if (k == 0) return k1; // left subtree has k or more elements.
+            k--; 
+            if (k == 0) return root->val; // root is the kth element.
+            return find(root->right, k); // answer lies in the right node.
+        }
+
+        int kthSmallest(TreeNode* root, int k) {
+           return find(root, k); // Call another function to pass k by reference.
+        }
         
-        inorder(root->left,k);
-        cnt++ ;
-        
-        if(cnt == k) ans = root->val ;
-        
-        inorder(root->right,k) ;
+
     
-    
-    }
-    
-    int kthSmallest(TreeNode* root, int k) {
-        inorder(root,k) ;
-        
-        return ans ;
-        
-        
-    }
 };

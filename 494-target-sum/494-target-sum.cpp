@@ -4,7 +4,7 @@ public:
         
         int  n = nums.size(),i,j ;
         
-        if(target>1000) return 0 ;
+      //  if(target>1000) return 0 ;
         
         vector<vector<int>>dp(n+1,vector<int>(2001,0)) ;
         

@@ -13,25 +13,21 @@ class Solution {
 public:
     
     bool checkSame(TreeNode* p, TreeNode* q){
-        //if both are NULL return true ;
+     
+    //If both are NULL -> return true ;
+    if(p== NULL && q == NULL) return true ;
+    //If one of the roots is NULL and other is not  ; return false ;
+    if(p == NULL || q == NULL) return false ;
+    //Cheking for the values 
+    if(p->val != q->val ) return false ;
         
-        if( p == NULL && q == NULL ) return true ;
-        
-        //If one of the Node is Null and other Not 
-        
-        if(p == NULL || q == NULL) return false ;
-        
-        //Now Check for the Values 
-        
-        if(p->val != q->val ) return false ;
-        
-        //Call for Left and Right Subtree Recursively 
-        
-        return checkSame(p->left,q->left) && checkSame(p->right,q->right) ;
-        
+    //Call Recursively for the left and right subtree 
+    
+    return checkSame(p->left,q->left) && checkSame(p->right,q->right) ;
         
     }
-    
+        
+        
     
     bool isSameTree(TreeNode* p, TreeNode* q) {
         

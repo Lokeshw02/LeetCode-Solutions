@@ -13,27 +13,26 @@ class Solution {
 public:
 
 
-int checkHeight(TreeNode* root){
+int solve(TreeNode* root,bool &ans){
+        if(root == NULL){
+            return 0;
+        }
     
-if(root==NULL)
-return 0;
+        int lh = solve(root->left,ans);
     
-int lh=checkHeight(root->left);
+        int rh = solve(root->right,ans);
+        
+        if(abs(lh-rh) > 1){
+            ans = false;
+        }
+        
+        return 1 + max(lh,rh);
+    }
     
-if( lh== -1) return -1;
-    
-int rh=checkHeight(root->right);
-    
-if(rh == -1) return -1;
-    
-if(abs(lh-rh) > 1) return -1;
-    
-return max(lh,rh)+1;
-    
-}
-    
-    bool isBalanced(TreeNode* root) {
-     return checkHeight(root) != -1;
-}
+    bool isBalanced(TreeNode *root){
+        bool ans = true;
+        solve(root,ans);
+        return ans;
+    }
     
 };

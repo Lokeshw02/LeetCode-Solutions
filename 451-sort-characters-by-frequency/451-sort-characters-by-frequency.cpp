@@ -1,6 +1,7 @@
 vector<int> freq(256,0) ;
     
     bool compare(char &a, char &b){
+        
         if(freq[a] == freq[b]) return a<b ; //Based on Ascii Value system 
         
         return freq[a] > freq[b] ;
@@ -9,12 +10,7 @@ vector<int> freq(256,0) ;
 
 class Solution {
 public:
-    
-    
-    
-  
-    
-    string frequencySort(string s) {
+       string frequencySort(string s) {
     
         fill(freq.begin(),freq.end(),0) ;
         

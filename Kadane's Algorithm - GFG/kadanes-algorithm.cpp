@@ -13,22 +13,22 @@ class Solution{
         
         // Your code here
         
-        int curr, prev, res ;
+        int prev = arr[0];
+        int res = arr[0] , curr ;
         
-        prev = arr[0] ;
-        
-        res = prev ;
-        
-        for(int i =1; i<n;i++){
+        for(int i =1; i< n; i++){
             
             curr = max(arr[i], arr[i]+prev) ;
-            res = max(res, curr) ;
-            
+            res = max(res,curr) ;
             
             prev = curr ;
             
+            
+            
         }
+        
         return res ;
+        
     }
 };
 

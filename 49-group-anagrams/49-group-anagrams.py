@@ -6,7 +6,7 @@ class Solution:
         
         for i in range(len(strs)):
             gId = strs[i]
-            gId = ''.join(sorted(gId)) 
+            gId = "".join(sorted(gId)) 
             
             
             if gId in m:

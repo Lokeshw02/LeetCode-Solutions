@@ -27,9 +27,9 @@ public:
         
              
             if(a[lo] - lo -1  < k )
-                return a[lo] +k - a[lo] + lo + 1 ;
+                return k + lo + 1 ;
         
-            return a[lo] +k - a[lo] + lo ;
+            return  k + lo ;
         
         
     }

@@ -2,33 +2,39 @@ class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         
+       if( matrix.size() == 0 || matrix[0].size() ==0) return false ;
+        
          
-        int m= matrix.size(),i,j;
-        int n = matrix[0].size(),lo,hi,mid;
+       int n = matrix.size() ;
+       int m = matrix[0].size() ;
         
-        if(n==0) return false;
-        if (matrix.size() == 0) return false;
+
+       
+       int lo = 0 ;
+       int hi = m*n -1 ;
+       int mid,i,j ;
+    
         
-        lo= 0, hi = m*n -1;
-        
-        while(lo<hi)
-        {
-            mid = lo+(hi-lo)/2;
-                
-            i = mid/n;
-            j = mid%n;
+        while(lo<hi){
             
-        if(matrix[i][j] >= target)
-            hi = mid;
-        else
-         lo = mid+1;
-           }
-        //Sanity Chek
+            mid = lo + (hi-lo)/2 ;
+            
+            i = mid/m ;
+            j = mid%m ;
+            
+            if(matrix[i][j] >= target)
+                hi = mid ;
+            else 
+                lo = mid +1 ;
+                 
+            
+        }
         
-       i = lo/n;
-       j = lo%n;
+        i = lo/m ;
+        j = lo%m ;
         
-        return(matrix[i][j] == target?true : false);
+      return   matrix[i][j] == target ? true : false ;
+       
         
     }
 };

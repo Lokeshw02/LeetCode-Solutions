@@ -39,7 +39,7 @@ public:
             if(countLessthanOrEqualTo(matrix,mid) < k)
                 lo = mid +1 ;
             
-            if(countLessthanOrEqualTo(matrix,mid) >= k){
+            else {
                 ans = mid ;
                 hi = mid -1 ;
             }

@@ -1,52 +1,28 @@
 class Solution {
 public:
-    
-    
-    void helper(vector<int>&candidates, int target, int startIdx,vector<int>&currSet,vector<vector<int>>&res){
-        
-        if(target == 0){
-            res.push_back(currSet) ;
-            return ;
+    set<vector<int>>res;
+    vector<int>curr;
+    void solve(int i, vector<int>&nums, int target){
+        int n = nums.size();
+        if(target==0){
+            res.insert(curr);
+            return;
         }
+        else if(target<0)
+            return;
         
-        if(startIdx >= candidates.size())
-            return ;
-        
-        if( target < candidates[startIdx] )
-            return ;
-        
-        
-        //Include 
-        
-        currSet.push_back(candidates[startIdx]) ;
-        
-        helper(candidates, target-candidates[startIdx],startIdx,currSet,res) ;
-        
-        currSet.pop_back() ;
-        
-        //Exclude 
-        
-         helper(candidates, target,startIdx+1,currSet,res) ;
-        
-          
-        
+        else if(i==n)
+            return;
+        curr.push_back(nums[i]);
+        solve(i, nums, target-nums[i]);
+        curr.pop_back();
+        solve(i+1, nums, target);
     }
     
-    
-    
-    
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        
-        
-         sort(candidates.begin(),candidates.end()) ;
-         vector<int>currSet ;
-         vector<vector<int>>res ;
-         
-         helper(candidates,target,0,currSet,res) ;
-         
-         return res ;
-        
-        
-        
+    void solve();
+    vector<vector<int>> combinationSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        solve(0, nums, target);
+        return vector<vector<int>>(res.begin(), res.end());
     }
 };

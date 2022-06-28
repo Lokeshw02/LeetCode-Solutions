@@ -1,55 +1,30 @@
 class Solution {
 public:
-    
-    void helper(vector<int>& candidates, int target,int startIdx, vector<int>& currSet, vector<vector<int>>&res){
-        
-        if(target == 0) {
-            res.push_back(currSet) ;
-            return ;
-        }
-        
-        if(startIdx == candidates.size())
-            return ;
-        if(target < candidates[startIdx])
-            return ;
-        
-        //Include 
-        
-        currSet.push_back(candidates[startIdx]) ;
-        
-        helper(candidates, target - candidates[startIdx] ,startIdx+1,currSet,res) ;
-        
-        currSet.pop_back() ;
-        
-        int prev = candidates[startIdx], i ;
-        
-        for(i = startIdx ; i<candidates.size() && prev == candidates[i]; i++) ;
-        
-        //Exclude and proceed to the next element 
-        
-        
-        helper(candidates, target , i , currSet ,res ) ;
-        
-        
-        
-        
-        
+    set<vector<int>>res;
+    vector<int>curr;
+    void solve(int i, vector<int>&nums, int target){
+        int n = nums.size();
+        if(target==0){
+            res.insert(curr);
+            return;
+        }    
+        if(target<0)
+            return;
+        if(i==n)
+            return;
+        curr.push_back(nums[i]);
+        solve(i+1, nums, target-nums[i]);
+        curr.pop_back();
+        int j=i+1;
+        while(j<n && nums[j]==nums[i] )
+            j++;
+        solve(j, nums, target);
     }
-    
-    
-    
- 
-    
-    
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        
-        sort(candidates.begin(),candidates.end()) ;
-        vector<int>currSet ;
-        vector<vector<int>>res ;
-        
-        helper(candidates,target,0,currSet,res) ;
-        
-        return res ;
-        
+    vector<vector<int>> combinationSum2(vector<int>& nums, int target) {
+        int n = nums.size();
+       // cout << n<<endl;
+        sort(nums.begin(), nums.end());
+        solve(0, nums, target);
+        return vector<vector<int>>(res.begin(), res.end());
     }
 };

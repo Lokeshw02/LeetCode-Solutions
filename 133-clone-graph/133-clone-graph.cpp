@@ -22,21 +22,23 @@ public:
 class Solution {
 public:
     
-    Node* dfs(Node* n, unordered_map<Node*,Node*> &m){
-        Node *newN = new Node(n->val) ;
+    Node* dfs(Node* n, unordered_map<Node*,Node*>&m){
+        Node* newN = new Node(n->val) ;
         m[n] = newN ;
         
-        //Go through the unvisited Neighbours 
+        //Go through the unvisited neighbours  
         
         for(auto &nbr : n->neighbors){
-            if(m.find(nbr) == m.end())
+            if(m.find(nbr) == m.end()) 
                 newN->neighbors.push_back(dfs(nbr,m)) ;
-            else 
-                newN->neighbors.push_back(m[nbr]);
+            else
+                newN->neighbors.push_back(m[nbr]) ;
         }
+        
         return newN ;
+        
+        
     }
-    
   
     
     

@@ -28,9 +28,13 @@ public:
     
         int lastNum = arr.back() ;
         
-         m[lastNum] = m[val] ;
+//          m[lastNum] = m[val] ;
         
-        arr[m[val]] = lastNum ;
+//         arr[m[val]] = lastNum ;
+        
+        swap(arr[arr.size()-1],arr[m[val]]) ;
+        
+         m[lastNum] = m[val];
         
        
         

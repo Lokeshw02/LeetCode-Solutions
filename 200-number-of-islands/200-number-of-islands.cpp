@@ -9,11 +9,11 @@ public:
         visited[row][col] = 1;
         
             
-            int dx[4] = {-1, 0, 1, 0};
-            int dy[4] = {0, 1, 0, -1};
+            // int dx[4] = {-1, 0, 1, 0};
+            // int dy[4] = {0, 1, 0, -1};
             for(int i=0; i<4; i++){
-                    int nrow = row+dx[i];
-                    int ncol = col +dy[i];
+                    int nrow = row+dirs[i][0];
+                    int ncol = col +dirs[i][1];
                     if(nrow>=0 && nrow<m && ncol>=0 && ncol<n && !visited[nrow][ncol] && grid[nrow][ncol] == '1'){
                         dfs(nrow, ncol, visited, grid);
                     }

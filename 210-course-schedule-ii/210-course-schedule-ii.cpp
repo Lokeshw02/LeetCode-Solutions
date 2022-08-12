@@ -1,41 +1,42 @@
 class Solution {
 public:
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        //Create the Explicit Graph 
+      
         vector<vector<int>>graph(numCourses) ;
-        vector<int> in(numCourses,0) ;
         
-        for(auto &pre : prerequisites ){
-            graph[pre[1]].push_back(pre[0]) ;
-            in[pre[0]]++ ;
+        vector<int>indegrees(numCourses,0) ;
+        
+        vector<int> res  ;
+        int count = 0  ;
+        
+        //Explicit graph creation 
+        for(int i = 0 ; i< prerequisites.size() ; i++){
+            graph[prerequisites[i][1]].push_back(prerequisites[i][0]) ;
+            indegrees[prerequisites[i][0]]++ ;
         }
-        //Push all the ) degree Nodes in the Queue 
-        queue<int>q; 
         
-        for(int i = 0; i < in.size(); i++){
-            if(in[i] == 0 )
+        
+        queue<int>q ;
+        
+        for(int i = 0; i < indegrees.size() ; i++){
+            if(indegrees[i] == 0)
                 q.push(i) ;
         }
-        vector<int>res ;
-        int count = 0 ;
         
         while(!q.empty()){
-            int t = q.front() ;
+            int t = q.front()  ;
             q.pop() ;
-            
             count++ ;
             res.push_back(t) ;
-            
-            //Decreease the Indegrees of all the Adjecent Nodes 
+            //Decrease the Indegrees of all the Adjecent  Nodes 
             
             for(auto &nbr : graph[t]){
-                in[nbr]-- ;
-                if(in[nbr] == 0) 
-                q.push(nbr) ;
-                
+                indegrees[nbr]-- ;
+                if(indegrees[nbr] == 0)
+                    q.push(nbr) ;
             }
+          
         }
-        
-        return count == numCourses ? res : vector<int>() ;
+       return count == numCourses ? res : vector<int>() ;
     }
 };

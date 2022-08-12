@@ -1,43 +1,47 @@
 class CustomStack {
 public:
-     vector<int> st;
-    vector<int> inc;
-    int size_;
+    vector<int> stk ;
+    vector<int> inc ;
+    
+    int size_ ;
+    
     CustomStack(int maxSize) {
-        size_ = maxSize;
+        size_ = maxSize ;
     }
     
     void push(int x) {
-        if(st.size() < size_){
-            st.push_back(x);
-            inc.push_back(0);
+        if(stk.size() < size_){
+             stk.push_back(x) ;
+        inc.push_back(0 ) ;
         }
+       
     }
     
     int pop() {
-        if(st.size() == 0)
-            return -1;
+        if(stk.size() == 0) return -1 ;
         
-        int t = st[st.size()-1];
-        st.pop_back();
+        int t = stk[stk.size()-1] ;
+        stk.pop_back() ;
         
-        int t2 = inc[inc.size()-1];
-        inc.pop_back();
+        int t1 = inc[inc.size() - 1] ;
+        inc.pop_back() ;
         
-        // Update the predecessor
-        if(inc.size() > 0) {
-            inc[inc.size()-1] += t2;
+        //Update the Predecessor 
+        if(inc.size() > 0){
+            inc[inc.size()-1] += t1 ;
         }
         
-        return t+t2;
+        return t + t1 ;
+        
     }
     
-    // O(1)
-    // Lazy increment
     void increment(int k, int val) {
-        if(st.size() == 0) return;
         
-        inc[min(k, (int)st.size())-1] += val;
+        if(stk.size() == 0) return ;
+        
+        int m = min  (k, (int)stk.size()) -1 ;
+        
+        inc[m] += val ;
         
     }
 };

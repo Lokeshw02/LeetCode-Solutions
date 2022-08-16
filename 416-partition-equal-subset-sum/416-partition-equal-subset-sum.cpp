@@ -1,44 +1,48 @@
 class Solution {
 public:
+    
+    int helper(vector<int>& nums, int sum, int n, vector<vector<int>>&dp){
+        
+        if(sum == 0 ) return true ;
+        if(n == 0 ) return false ;
+        
+        
+        if(dp[n][sum] != -1) return dp[n][sum] ;
+        
+        
+        if(nums[n-1] <= sum) {
+            
+            return  dp[n][sum] = helper(nums, sum - nums[n-1], n-1,dp) || helper(nums, sum, n-1,dp) ;
+        }
+        else 
+            return  dp[n][sum] = helper(nums, sum, n-1,dp) ;
+        
+     
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     bool canPartition(vector<int>& nums) {
         
-        long long int totalSum = 0;
+        int n = nums.size() ;
+        int sum = 0 ;
+      
+        for(int x : nums) sum += x ;
         
-        for(int x: nums){
-         totalSum += x ;   
-        }
+        if(sum %2 == 1 ) return false ;
         
-        if(totalSum%2 == 1) return false ;
-        else totalSum = totalSum/2 ;
+         vector<vector<int>>dp(n+1,vector<int>(sum/2 +1, -1)) ;
         
-        int N = nums.size(), sum = totalSum ;
+         
+        int ans =  helper(nums, sum/2 ,n,dp) ;
         
-         vector<vector<bool>>dp(N+1,vector<bool>(sum+1)) ;
-             int i,j ;
-        
-        for(i=0;i<N+1;i++){
-            for(j=0;j<sum+1;j++){
-                
-                if(i==0) dp[i][j] = false  ;
-                if(j==0) dp[i][j] = true ;
-                
-            }
-        }
-        
-         for(i=1;i<N+1;i++){
-            for(j=1;j<sum+1;j++){
-                
-               if(nums[i-1]<= j ) dp[i][j]  = dp[i-1][j-nums[i-1]] || dp[i-1][j] ;
-               else 
-               dp[i][j] = dp[i-1][j] ;
-                
-            }
-        }
-        
-        
-        return dp[N][sum] ;
-            
-            
+        return ans == 1 ? true : false ;
+           
         
     }
 };

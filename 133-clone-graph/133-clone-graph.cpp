@@ -22,33 +22,35 @@ public:
 class Solution {
 public:
     
-    Node* dfs(Node* n, unordered_map<Node*,Node*> &m){
-        Node * newN = new Node(n->val) ;
+    
+    Node* dfs(Node* n , unordered_map<Node*,Node*> &m){
+        
+        Node* newN = new Node(n->val) ;
         
         m[n] = newN ;
         
-        //Go through the unvisited Neighbours 
+        // go thoreugh tghe noeuyghboys pf n 
         
-        for(auto &nbr : n->neighbors){
-            if(m.find(nbr) == m.end()){
-                 Node * n2 = dfs(nbr,m) ;
-                newN->neighbors.push_back(n2) ;
-            }
-            else{
-                newN->neighbors.push_back(m[nbr]) ;
-            }
+        for(auto & nbr : n->neighbors){
             
+            if(m.find(nbr) == m.end())
+                newN->neighbors.push_back(dfs(nbr,m)) ;
+            else 
+                  newN->neighbors.push_back(m[nbr]) ;
         }
         
-        return newN ;
-    }
-    
-    
-    Node* cloneGraph(Node* node) {
-        if(!node)
-            return NULL ;
-        unordered_map<Node*,Node*> m ;
         
-        return dfs(node,m) ;
+        return newN ;
+        
+        
+    }
+    Node* cloneGraph(Node* node) {
+        if(!node) 
+            return NULL ;
+        
+        unordered_map<Node*, Node*> m ;
+        
+        return dfs(node, m ) ;
+        
     }
 };

@@ -2,43 +2,54 @@ class Solution {
 public:
     
     
-    vector<vector<int>> dirs = {{0,1},{1,0},{0,-1},{-1,0}} ;
+    vector<vector<int>>dirs = {{1,0},{0,1},{-1,0},{0,-1}} ;
     
-    void dfs(int i, int j, vector<vector<bool>>& visited, vector<vector<int>>&grid, int &count ){
+    void dfs(vector<vector<int>>& grid, vector<vector<bool>>& visited, int &count, int i, int j, int &n, int &m){
         visited[i][j] = true ;
-        count ++ ;
-        //Now visit the Neighbours 
         
-        for(int t = 0; t<dirs.size(); t++){
-            int x = i + dirs[t][0] ;
-            int y = j + dirs[t][1] ;
+        count++ ;
+        
+        //Go through the neighbours 
+        
+        for(auto &dir : dirs){
+            int x = i + dir[0] ;
+            int y = j + dir[1] ; 
             
-            //x and y are 4 neighbours of i,j 
-            
-            if(x >=0 && x < grid.size() && y >= 0 && y < grid[0].size() && grid[x][y] == 1 && !visited[x][y])
-                dfs(x,y,visited,grid,count) ;
+            if(x >= 0 && y >=0 && x < n && y <m && grid[x][y] == 1 && !visited[x][y]){
+                
+                 
+                 dfs(grid,visited,count,x,y,n,m)  ; 
+                  
+                
+            }
+               
         }
+        
+        
+        
     }
     
     
-    
-    
-    
     int maxAreaOfIsland(vector<vector<int>>& grid) {
-        int i, j, count = 0, res = 0 ;
-        vector<vector<bool>>visited(grid.size(),vector<bool>(grid[0].size(), false )) ;
+        int n = grid.size() ;
+        int m = grid[0].size() ;
+    
+        vector<vector<bool>>visited(n,vector<bool>(m,false)) ;
+        int count, res = INT_MIN ;
         
-        for(int i = 0; i < grid.size() ; i++){
-            for(int j = 0; j < grid[0].size() ; j++){
+        for(int i = 0; i< n ; i++){
+            for(int j =0 ; j< m ;j++){
                 
-                if(grid[i][j] == 1 && !visited[i][j] ){
+                if(!visited[i][j] && grid[i][j] == 1 ){
+                    
                     count = 0 ;
-                    dfs(i,j,visited,grid,count) ;
+                    dfs(grid,visited,count,i,j,n,m) ;
                     res = max(res,count) ;
+                    
                 }
             }
         }
-        
-        return res ;
+        return res == INT_MIN ? 0 : res ;
+    
     }
 };

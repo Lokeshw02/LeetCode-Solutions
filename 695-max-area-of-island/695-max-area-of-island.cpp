@@ -35,7 +35,7 @@ public:
         int m = grid[0].size() ;
     
         vector<vector<bool>>visited(n,vector<bool>(m,false)) ;
-        int count, res = INT_MIN ;
+        int count, res = 0 ;
         
         for(int i = 0; i< n ; i++){
             for(int j =0 ; j< m ;j++){
@@ -49,7 +49,7 @@ public:
                 }
             }
         }
-        return res == INT_MIN ? 0 : res ;
-    
+       // return res == INT_MIN ? 0 : res ;
+    return res ;
     }
 };

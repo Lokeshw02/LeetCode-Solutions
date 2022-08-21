@@ -1,31 +1,46 @@
 class Solution {
 public:
-    int findTargetSumWays(vector<int>& nums, int target) {
+    int findTargetSumWays(vector<int>& arr, int target) {
         
-        int  n = nums.size(),i,j ;
         
-      //  if(target>1000) return 0 ;
+         int total_sum = 0 ;
+        int n = arr.size() ;
+    for(int i = 0; i<n ; i++){total_sum += arr[i] ;} 
         
-        vector<vector<int>>dp(2,vector<int>(2001,0)) ;
+   
+    
+    
+    if( (target+ total_sum)%2 ) return 0 ;
         
-        dp[n%2][0 + 1000] = 1 ;
+         
         
-        for(i = n-1;i>=0;i--){
-            for(j = -1000;j<= 1000; j++){
-                
-                dp[i%2][j+1000] = 0 ;
-                
-                //Two choices : add +a
-                if(j-nums[i] >= -1000)
-                    dp[i%2][j+1000] += dp[(i+1)%2][j-nums[i]+1000] ;
-                // add -a 
-                
-                if(j+nums[i] <= 1000)
-                    dp[i%2][j+1000] += dp[(i+1)%2][j+nums[i]+1000]  ;
-             }
+         
+    int req  = (target+ total_sum)/2 ;
+        
+    if(req<0)
+        return 0;
+        
+        int dp[n+1][req+1];
+    
+    for(int i = 0 ; i < n+1 ; i++){
+        for(int j = 0; j< req +1 ; j++){
+            if(i == 0) dp[i][j]= 0 ;
+            if(j == 0) dp[i][j] = 1 ;
             
         }
-        
-        return dp[0][target+1000] ;
+    }
+    
+     for(int i = 1 ; i < n+1 ; i++){
+        for(int j = 0; j< req +1 ; j++){
+           
+            if(arr[i-1] <= j)
+                dp[i][j] = dp[i-1][j] + dp[i-1][j-arr[i-1]] ;
+            
+            else 
+                dp[i][j] = dp[i-1][j]  ;
+          
+        }
+    }
+    return dp[n][req] ;
     }
 };

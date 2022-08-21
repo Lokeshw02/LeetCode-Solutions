@@ -1,46 +1,24 @@
 class Solution {
 public:
-    int findTargetSumWays(vector<int>& arr, int target) {
-        
-        
-         int total_sum = 0 ;
-        int n = arr.size() ;
-    for(int i = 0; i<n ; i++){total_sum += arr[i] ;} 
-        
-   
-    
-    
-    if( (target+ total_sum)%2 ) return 0 ;
-        
-         
-        
-         
-    int req  = (target+ total_sum)/2 ;
-        
-    if(req<0)
-        return 0;
-        
-        int dp[n+1][req+1];
-    
-    for(int i = 0 ; i < n+1 ; i++){
-        for(int j = 0; j< req +1 ; j++){
-            if(i == 0) dp[i][j]= 0 ;
-            if(j == 0) dp[i][j] = 1 ;
-            
+   int solve(int n,int target,vector<vector<int>>&dp,vector<int>&nums){
+        if(n==0){
+            if(target==0 and nums[0]==0) return 2;
+            if(target==0 or target==nums[0]) return 1;
+            return 0;
         }
+        if(dp[n][target]!=-1) return dp[n][target];
+        int np = solve(n-1,target,dp,nums);
+        int p =0;
+        if(target>=nums[n]) p = solve(n-1,target-nums[n],dp,nums);
+        return dp[n][target] = p+np;
     }
     
-     for(int i = 1 ; i < n+1 ; i++){
-        for(int j = 0; j< req +1 ; j++){
-           
-            if(arr[i-1] <= j)
-                dp[i][j] = dp[i-1][j] + dp[i-1][j-arr[i-1]] ;
-            
-            else 
-                dp[i][j] = dp[i-1][j]  ;
-          
-        }
-    }
-    return dp[n][req] ;
+    int findTargetSumWays(vector<int>& nums, int target) {
+        int n= nums.size();
+        int sum=0;
+        for(auto i:nums) sum+=i;
+        if(sum-target < 0 or (sum-target)%2) return 0;
+        vector<vector<int>>dp(n+1,vector<int>((sum-target)/2 +1, -1));
+        return solve(n-1,(sum-target)/2,dp,nums);
     }
 };

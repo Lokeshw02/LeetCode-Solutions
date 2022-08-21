@@ -7,10 +7,12 @@ public:
             return 0;
         }
         if(dp[n][target]!=-1) return dp[n][target];
-        int np = solve(n-1,target,dp,nums);
-        int p =0;
-        if(target>=nums[n]) p = solve(n-1,target-nums[n],dp,nums);
-        return dp[n][target] = p+np;
+        // int np = solve(n-1,target,dp,nums);
+        // int p =0;
+        if(target>=nums[n])
+          return   dp[n][target] = solve(n-1,target-nums[n],dp,nums) + solve(n-1,target,dp,nums);
+        
+         return dp[n][target] = solve(n-1,target,dp,nums);
     }
     
     int findTargetSumWays(vector<int>& nums, int target) {

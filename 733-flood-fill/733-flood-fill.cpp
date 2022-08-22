@@ -1,40 +1,37 @@
 class Solution {
 public:
     
-    vector<vector<int>> dirs = {{0,1},{1,0},{0,-1},{-1,0}} ;
-    
-   void dfs(int i, int j, vector<vector<int>>& visited, vector<vector<int>>& image, int color, int temp_color){
-       
-       visited[i][j] = true ;
-       
-       for(int t = 0; t < dirs.size() ; t++){
-            int x = i + dirs[t][0] ;
-            int y = j + dirs[t][1] ;
+    vector<vector<int>> dirs = {{0,1},{1,0},{0,-1},{-1,0}} ; 
+   
+    void dfs(vector<vector<int>>& grid, vector<vector<bool>> &visited, int sr, int sc, int &color, int &curr_color, int n, int m){
+        
+       // if(grid[sr][sc] = curr_color)
+            grid[sr][sc] = color ;
+            visited[sr][sc] = true ;
+        
+        for(auto &dir : dirs){
+         int x = sr + dir[0] ;
+         int y = sc + dir[1] ; 
             
-            if( x < image.size()  && x >= 0 && y < image[0].size() && y >= 0 &&  !visited[x][y] && image[x][y] == temp_color){
-                image[x][y] = color ;
-           
-                dfs(x,y,visited,image,color,temp_color) ;
-           
-            }
+        if(x >=0 && x < n && y >= 0 && y < m && grid[x][y] == curr_color && !visited[x][y] ) 
+            dfs(grid, visited, x,y,color,curr_color,n,m) ;
         }
-       
-       
-   }
+        
+        
+        
+    }
     
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-       
-       vector<vector<int>> visited(image.size(),vector<int>(image[0].size(), false)) ;
         
-        int temp_color = image[sr][sc] ;
-        image[sr][sc] = color ;
+        int n = image.size() ;
+        int m = image[0].size() ;
         
+       vector<vector<bool>> visited(n,vector<bool>(m,false)) ;
         
+        int curr_color = image[sr][sc] ;
         
-       dfs(sr,sc,visited,image,color,temp_color ) ;
+        dfs(image, visited, sr,sc,color,curr_color, n, m ) ;
         
-       return image ;
-        
-        
+        return image ;
     }
 };

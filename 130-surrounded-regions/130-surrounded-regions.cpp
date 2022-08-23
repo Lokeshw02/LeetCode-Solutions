@@ -1,64 +1,55 @@
 class Solution {
 public:
-    
     vector<vector<int>>dirs = {{0,1},{1,0},{-1,0},{0,-1}} ;
     
-    void dfs(int i, int j, vector<vector<bool>>&visited, vector<vector<char>>& board){
+    void dfs(int i, int j,vector<vector<char>>& board, vector<vector<bool>>&visited,int n, int m){
         
-        if(i<0 || i>= board.size() || j<0 || j>= board[0].size()) 
-            return ;
-        if(board[i][j] == 'X' || visited[i][j]) return ;
+        if(board[i][j] == 'X' || visited[i][j] ) return ; 
         
-        visited[i][j] = true ;
+        visited[i][j] = true  ;
         
-        for(int t= 0; t < dirs.size(); t++){
-            int x = i + dirs[t][0] ;
-            int y = j + dirs[t][1] ;
+        //Go thorough the neigbours 
+        
+        for(auto &dir : dirs){
+            int x = i + dir[0] ;
+            int y = j + dir[1] ;
             
-            dfs(x,y,visited,board) ;
+            if(x>=0 && y >=0 && x < n && y <m && board[x][y] == 'O' && !visited[x][y])
+                dfs(x,y,board,visited,n,m) ;
         }
     }
+
     
     
     void solve(vector<vector<char>>& board) {
-        vector<vector<bool>>visited(board.size(),vector<bool>(board[0].size(),false)) ;
+        int n = board.size() , m = board[0].size() ;
+        vector<vector<bool>>visited(n,vector<bool>(m,false)) ;
+        
+        //run  dfs on from the boundaries 
+        
+        //left - right 
+        for(int i= 0 ; i< n ; i++){
+            dfs(i,0,board,visited,n,m) ;
+            dfs(i,m-1,board,visited,n,m) ;
+            
+        }
+        //Top-Down 
+         for(int j= 0 ; j< m ; j++){
+            dfs(0,j,board,visited,n,m) ;
+            dfs(n-1,j,board,visited,n,m) ;
+            
+        }
+        
+         for(int i= 0 ; i< n ; i++){
+         for(int j= 0 ; j< m ; j++){
+          
+             if(board[i][j] == 'O' && !visited[i][j]) 
+                 board[i][j] = 'X' ;
+          
+        }
+        }
         
         
-      if(board.size() == 0 ) return ; 
-                                   
-                                   //Do a DFS from boundary 
-       
-         for(int i = 0; i < board.size(); i++){
-             //Left
-             dfs(i,0,visited,board) ;
-             //Rigth 
-             dfs(i,board[0].size()-1,visited, board) ;
-             
-         }
-         //Top and Bottom 
-                                  
-         for(int j = 0; j < board[0].size(); j++){
-             //top 
-             dfs(0,j,visited,board) ;
-             //Bottom 
-             dfs(board.size()-1,j,visited, board) ;
-             
-         } 
-                                   
-         //Flip the Unvisited 0 
-        for(int i = 0; i< board.size(); i++){
-            for(int j = 0 ;j< board[0].size(); j++){
-                
-                if(board[i][j] == 'O' && !visited[i][j])
-                    board[i][j] = 'X' ;
-            }
-        }                           
-
- 
-                                   
-                                 
-      
-                                   
-                            
+        
     }
 };

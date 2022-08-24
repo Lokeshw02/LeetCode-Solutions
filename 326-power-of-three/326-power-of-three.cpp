@@ -4,15 +4,13 @@ public:
         
         if(n==0) return false ;
         
-//         double x = log(n)/log(3) ;
+       
         
-//         if(ceil(x) == floor(x) ) return true ;
+        return fmod( (log10(n)/log10(3)),1) == 0 ;
         
-//         return false ;
+//         while(n%3 == 0) n = n/3 ;
         
-        while(n%3 == 0) n = n/3 ;
-        
-        return n == 1 ;
+//         return n == 1 ;
             
             
             

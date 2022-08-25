@@ -1,51 +1,52 @@
 class Solution {
 public:
-   void DFS(int i ,int j ,vector<vector<int>>& g1, vector<vector<int>>& g2,vector<vector<bool>>& vis,int &res)
     
-    {
-        if(i<0 ||  i>=g1.size() || j<0 || j>= g1[0].size()) return ;
+      vector<vector<int>> dirs = {{0,1},{1,0},{-1,0},{0,-1}} ; 
+    
+   void dfs(int i, int j, vector<vector<int>>& grid1, vector<vector<int>>& grid2,  vector<vector<bool>> &visited, int n, int m , int &count){
         
-        if(vis[i][j] || g2[i][j]==0) return ;
+        visited[i][j] = true ;
+       
+
         
-        if((g2[i][j] == 1 && g1[i][j] == 0) || (g2[i][j] == 0 && g1[i][j] == 0)) {
-            res = 0 ;
+        for(auto &dir : dirs){
+            int x = i + dir[0] ;
+            int y = j + dir[1] ;
+            
+             if(x >=0 && x < n && y >= 0 && y < m  ){
+                 if(grid1[x][y] == 0 && grid2[x][y] == 1) {
+                 count = 0 ;
+                  visited[i][j] = false ;
+                  return ;
+                 }
+                
+             }
+                
+            if(x >=0 && x < n && y >= 0 && y < m && !visited[x][y] && grid1[x][y] && grid2[x][y] ) 
+                dfs(x,y,grid1,grid2,visited,n,m,count) ;
+        }
+    }
+    
+    
+    int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
+        
+        int n = grid1.size() ;
+        int m = grid1[0].size() ;
+        int count, res = 0 ;
+        vector<vector<bool>> visited(n,vector<bool>(m,false) ) ;
+        
+        for(int i = 0; i< n ; i++){
+            for(int j = 0; j< m ; j++){
+                
+                if(!visited[i][j] && grid2[i][j] == 1 && grid1[i][j] == 1){
+                      count = 1 ;
+                      dfs(i,j,grid1,grid2,visited,n,m,count) ;
+                      res += count ;
+                }
+                  
+            }
         }
         
-        vis[i][j] = true ;
-        
-        DFS(i+1,j,g1,g2,vis,res);
-        DFS(i-1,j,g1,g2,vis,res);
-        DFS(i,j-1,g1,g2,vis,res);
-        DFS(i,j+1,g1,g2,vis,res);
-        
-        
-    
-    }
-    int countSubIslands(vector<vector<int>>& g1, vector<vector<int>>& g2) {
-        
-     int n = g1.size();
-     int m  = g1[0].size();
-     int ans  = 0;
-     vector<vector<bool>>vis(n,vector<bool>(m,false));
-     for(int i  = 0;i<n;i++)
-     {
-         for(int j  = 0;j<m;j++)
-         {
-             if(g2[i][j] == 1 && !vis[i][j])
-             {
-                 int res = 1;
-                 DFS(i,j,g1,g2,vis,res);
-                 ans+=res;
-                 
-             }
-             
-             
-         }
-     }
-        
-        return ans;
-        
-        
-        
+        return res ;
     }
 };

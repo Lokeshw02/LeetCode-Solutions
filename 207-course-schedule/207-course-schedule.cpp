@@ -1,57 +1,53 @@
 class Solution {
 public:
     
-    
-    bool isCycle(int n, vector<bool>& visited, vector<bool>&path, vector<vector<int>>&adjList){
+    bool isCycle(int n, vector<vector<int>>&adjList, vector<bool> &visited,  vector<bool>& path){
         
         visited[n] = true ;
         path[n] = true ;
         
         bool t = false ;
         
+        //Go thorugh all thr neighbours of n 
+        
         for(auto &nbr : adjList[n]){
-            // If cycyle Exists 
-            if(path[nbr]) 
-                return true ;
-            //Otgherwise travverse this edge if ot viviste d
-            
-            if(!visited[nbr]){
-                t = t || isCycle(nbr,visited,path,adjList) ;
-            }
-            
-            if(t)
-                return true ;
-            
-            
+        //path 
+            if(path[nbr]) return true ;
+            //Otherwise traverse this edge 
+            if(!visited[nbr]) 
+                t = t || isCycle(nbr,adjList,visited,path) ;
+            if(t) return true ;
         }
+        
         path[n] = false ;
         
         return t ;
     }
     
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
     
-        vector<vector<int>>adjList(numCourses) ;
+    
+    
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         
-        for(auto & pre : prerequisites ){
-            adjList[pre[1]].push_back(pre[0]) ;
-            
+        vector<vector<int>>adjList(numCourses) ;
+      //Create a graph 
+        for(auto &nbr : prerequisites){
+            adjList[nbr[1]].push_back(nbr[0]) ;
         }
         
-        vector<bool> visited(numCourses,false) , path(numCourses, false); 
+        vector<bool> visited(numCourses,false), path(numCourses,false) ;
         
         bool t = false ;
         
-        for( int i = 0 ; i < numCourses ; i++){
-            if(!visited[i])
-                t = t || isCycle(i,visited, path,adjList) ;
-            
-            if(t)
-                return false ;
+        
+        for(int i = 0 ; i < numCourses ;i++){
+            if(!visited[i]){
+                t = t || isCycle(i,adjList,visited,path)  ;
+                
+                if(t) return false ;
+            }
         }
         
         return !t ;
-        
-        
     }
 };

@@ -22,7 +22,7 @@ public:
                 
             }
             else if(visited[nbr] == 2) 
-                safe = visited[nbr] ;
+                safe = 2 ;
              
         }
         

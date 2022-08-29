@@ -1,45 +1,50 @@
 class Solution {
 public:
     
-    int dp[2005][2005];
+     int dp[2001][2001] ;
     
     
-    bool isPalindrome(string &s, int start, int end ){
-        while(start<=end){
-            if(s[start] != s[end])
-                return false ;
-            start++;end--;
+   bool isPalindrome(string &s, int i, int j){
+       while(i <= j){
+           if(s[i] != s[j]) 
+           return false ;
+           i++; j-- ;
+           
+       }
+       return true ;
+   }
+   
+   int helper(string &s , int i, int j){
+       if(i >= j) 
+       return 0 ;
+       
+       if(dp[i][j] != -1) 
+       return dp[i][j] ;  
+       
+       if( isPalindrome(s,i,j)) 
+       return 0 ;
+       
+       int mn = INT_MAX, temp ; 
+       
+       for(int k = i ; k <= j-1 ; k++ ){
+           
             
-        }
-        return true ;
+           
+           if(isPalindrome(s,i,k))
+            temp = 1 + helper(s,k+1,j) ; 
+           
+           mn = min(temp,mn) ;
+           
+       }
+       
+       return dp[i][j] = mn ;
+       
+       
+   }
+    int minCut(string s) {
+        
+        memset(dp,-1,sizeof(dp)) ; 
+        int n = s.size() ;
+        return helper(s,0,n-1) ;
     }
-   
-    int solve(string s, int i, int j){
-	if(i>=j) 
-      return 0;
-	if(dp[i][j]!=-1)
-        return dp[i][j];
-	if(isPalindrome(s,i,j)) 
-        return 0;
-	int mn = INT_MAX;
-	for(int k=i;k<=j-1;k++){
-		if(isPalindrome(s,i,k)) 
-            mn = min(mn, 1+solve(s,k+1,j));
-        dp[i][j] = mn;
-	}
-    
-	return dp[i][j];
-}
-
-int minCut(string s) {
-    int l=s.length();
-    memset(dp,-1,sizeof(dp));
-    
-    int ans=solve(s,0,l-1);
-    return ans;
-    
-}
-    
-    
-   
 };

@@ -2,7 +2,7 @@ class Solution {
 public:
     
     int dp[2005][2005];
-    int dp1[2005][2005];
+    
     
     bool isPalindrome(string &s, int start, int end ){
         while(start<=end){
@@ -34,7 +34,7 @@ public:
 int minCut(string s) {
     int l=s.length();
     memset(dp,-1,sizeof(dp));
-    memset(dp1,-1,sizeof(dp1));
+    
     int ans=solve(s,0,l-1);
     return ans;
     

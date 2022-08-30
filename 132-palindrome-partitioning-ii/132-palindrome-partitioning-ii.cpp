@@ -15,29 +15,28 @@ public:
    }
    
    int helper(string &s , int i, int j){
-       if(i >= j) 
-       return 0 ;
+       
+       if(i >= j) return 0 ;
+       
+       if(isPalindrome(s,i,j)) 
+           return 0 ;
        
        if(dp[i][j] != -1) 
-       return dp[i][j] ;  
+           return dp[i][j] ;
        
-       if( isPalindrome(s,i,j)) 
-       return 0 ;
+       int mn = INT_MAX ;
        
-       int mn = INT_MAX, temp ; 
-       
-       for(int k = i ; k <= j-1 ; k++ ){
+       for(int k =  i ; k < j ; k++){
            
-            
-           
-           if(isPalindrome(s,i,k))
-            temp = 1 + helper(s,k+1,j) ; 
-           
-           mn = min(temp,mn) ;
-           
+           if(isPalindrome(s,i,k)) {
+                int tempans = 1 + helper(s,k+1,j) ; 
+                mn = min(mn,tempans) ;
+           }
+              
        }
        
        return dp[i][j] = mn ;
+       
        
        
    }

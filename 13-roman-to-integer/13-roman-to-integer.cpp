@@ -1,6 +1,9 @@
 class Solution {
 public:
     int romanToInt(string s) {
+        
+        int n  = s.size() ;
+        
         unordered_map<char,int> m ; 
         
         m['I'] = 1 ;
@@ -11,20 +14,15 @@ public:
         m['D'] = 500 ;
         m['M'] = 1000 ;
         
-        int sum = m[s[s.size()-1]];
-       // bool flag  = true ;
-        for(int i = s.size() -2 ; i>= 0 ; i--){
+        
+        int sum = m[s[s.size() -1 ]] ;
+        
+        for(int i = n-2; i >=0 ; i--){
             
-            //if(flag)
-            if(m[s[i]]<m[s[i+1]])
-             sum -= m[s[i]] ;   
-                
-                
-            
-           else 
-            sum += m[s[i]] ;  
-            
-            
+            if(m[s[i]] >= m[s[i+1]]) 
+                sum += m[s[i]] ;
+            else
+                sum -= m[s[i]] ;
         }
         
         return sum ;

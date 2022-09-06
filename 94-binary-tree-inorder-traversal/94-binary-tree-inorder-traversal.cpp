@@ -12,32 +12,25 @@
 class Solution {
 public:
     
-    
-    void  inorder(TreeNode* root, vector<int>& res){
+    void inorder(TreeNode* root, vector<int>&res){
+        if(!root) return ;
         
-        //Base Case 
+        inorder(root->left,res) ;
         
-        if(root == NULL) return ;
-        
-        //Visit Left Subtree 
-        inorder(root->left, res) ;
-        //Visit node 
         res.push_back(root->val) ;
-        //Visit Right Subtree 
-        inorder(root->right,res ) ;
         
+        inorder(root->right,res) ;
         
         
     }
+    
     
     
     vector<int> inorderTraversal(TreeNode* root) {
+        vector<int>res ;
         
-     vector<int> res ;
-     inorder(root,res) ;
+        inorder(root,res) ;
+        
         return res ;
-        
-    }
-    
-    
+     }
 };

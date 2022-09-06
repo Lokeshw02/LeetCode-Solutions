@@ -2,24 +2,29 @@ class Solution {
 public:
     bool isPerfectSquare(int num) {
         
-        if(num ==1) return true ;
+        long long  hi = num, lo = 0 , mid ;
         
-       long long  int lo = 0, hi = num/2, mid ;
-        
-        while(lo<hi){
+        while(lo <= hi){
             
             mid = lo + (hi-lo)/2 ;
-                
-            if(mid*mid == num) return true ;
             
-            if(mid*mid>=num)
-                hi = mid;
+            if(mid*mid == num)
+                return true ;
+            
+           else  if(mid*mid > num) 
+                hi = mid -1 ;
+            
             else
-                lo = mid+1 ;
+            {
+                if( (mid+1)*(mid+1) > num    )
+                    return false ;
+                else 
+                    lo = mid +1 ;
+            }
             
         }
         
-       if(lo*lo == num) return true ;
-       return false ;
+        return false ;
+        
     }
 };

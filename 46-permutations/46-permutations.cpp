@@ -1,36 +1,41 @@
 class Solution {
 public:
     
-    void helper(vector<int>&arr, vector<int>&visited, vector<int>&currSet,vector<vector<int>>&res){
+    void helper(vector<int>& nums, vector<vector<int>>&res,vector<int> &temp,vector<int> &visited ){
         
-        if(currSet.size() == arr.size()){
-            res.push_back(currSet) ;
+        if(temp.size() == nums.size()) 
+        {
+            res.push_back(temp) ;
             return ;
         }
         
-        for( int i = 0; i< arr.size() ;i++){
+        for(int i = 0;i< nums.size() ; i++){
             
-            if(visited[i] == 0){
+            if(visited[i] == 0) {
                 visited[i] = 1 ;
-                currSet.push_back(arr[i]) ;
-                helper(arr,visited,currSet,res) ;
-            
+                 temp.push_back(nums[i]) ;
+                 helper(nums,res,temp,visited) ;
                 visited[i] = 0 ;
-                currSet.pop_back() ;
+                temp.pop_back() ;
+                
             }
-            
-            
-            
+               
         }
         
+        
     }
-     
+    
+    
+    
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>>res ;
-        vector<int>currSet ;
-        vector<int>visited(nums.size(),0) ;
-        helper(nums,visited,currSet,res) ;
+        vector<int> temp ;
+        vector<int> visited(nums.size(),0) ; 
+        
+        helper(nums,res,temp,visited) ;
         
         return res ;
+        
+        
     }
 };

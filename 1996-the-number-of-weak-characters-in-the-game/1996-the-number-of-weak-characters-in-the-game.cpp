@@ -15,7 +15,7 @@ public:
         int max_ = INT_MIN ;
         int count = 0 ;
         
-        for(auto p : properties){
+        for(auto &p : properties){
             
             if(max_ > p[1])
                 count++ ;

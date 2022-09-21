@@ -31,8 +31,8 @@ public:
         else if(r==0){
             return 1+l;
         }
-        // return 1+min(l,r);
-        return -1;
-        
+        return 1+min(l,r);
+      
+
     }
 };

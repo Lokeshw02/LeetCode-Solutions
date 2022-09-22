@@ -14,7 +14,7 @@ public:
         if(n-i +1 < k ) 
             return ;
         
-        
+        if(k<0) return ;
         
         //Include
         temp.push_back(i) ;
@@ -26,9 +26,7 @@ public:
         helper(n,k, i+1,temp, res ) ;
         
     }
-    
-    
-    
+     
     
     vector<vector<int>> combine(int n, int k) {
         vector<vector<int>> res ;

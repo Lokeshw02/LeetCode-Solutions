@@ -13,31 +13,31 @@ public:
     }
     
     void helper(string &s, int startIdx, vector<string>&currSet, vector<vector<string>>&res){
-        int i, n = s.size() ;
         
-         if(startIdx == n ){
+                        
+        if(startIdx == s.size()){
             res.push_back(currSet) ;
             return ;
-             }
-       
+        } 
         
         string prefix = "" ;
         
-        for(i=startIdx;i<n;i++){
+        for(int i = startIdx ; i < s.size() ; i++){
             
             prefix += s[i] ;
             
-            if(!isPalindrome(prefix,0,prefix.size()-1))
+            if(!isPalindrome(prefix,0,prefix.size()-1)) 
                 continue ;
-            //
             
             currSet.push_back(prefix) ;
             
-            helper(s,i+1,currSet,res) ;
+            helper(s, i+1 , currSet, res) ;
             
             currSet.pop_back() ;
-                        
         }
+        
+        
+        
         
     }
     

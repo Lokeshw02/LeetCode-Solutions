@@ -1,33 +1,43 @@
 class Solution {
 public:
     
-    bool helper(vector<vector<char>>&board, int i, int j , int count, string &word){
-        if(count == word.length()) 
+    vector<vector<int>> dirs = {{0,1},{1,0},{-1,0},{0,-1}} ;
+    
+    bool helper(vector<vector<char>>& board, string &word, int i, int j, int count ){
+        if(count == word.size()) {
             return true ;
-        if(i==-1 || j == -1 || i == board.size() ||j == board[0].size()||board[i][j] != word[count])
+        }
+        
+        if(i <0 || j <0 || i >= board.size() || j >= board[0].size() || board[i][j] != word[count]) 
             return false ;
+        
         char temp = board[i][j] ;
+        
         board[i][j] = '*' ;
         
-        bool found = helper(board,i+1,j,count+1,word) || helper(board,i-1,j,count+1,word)||helper(board,i,j+1,count+1,word)||helper(board,i,j-1,count+1,word) ;
+        bool found = false ;
+        
+        for(auto &dir : dirs ){
+            int x = i + dir[0] ;
+            int y = j + dir[1] ;
+            
+            found = found || helper(board,word,x,y,count+1) ;
+        }
         
         board[i][j] = temp ;
+        
         
         return found ;
         
     }
     
     
-    
-    bool exist(vector<vector<char>>& board, string & word) {
-        for(int i = 0;i<board.size();i++){
-            for(int j =0;j<board[0].size();j++){
+    bool exist(vector<vector<char>>& board, string word) {
+        for(int i = 0 ; i < board.size(); i++){
+            for(int j = 0 ; j < board[0].size() ; j++){
                 
-                if(board[i][j] == word[0] && helper(board,i,j,0,word))
+                if(board[i][j] == word[0] && helper(board,word,i,j,0)) 
                     return true ;
-                
-                
-                
             }
         }
         

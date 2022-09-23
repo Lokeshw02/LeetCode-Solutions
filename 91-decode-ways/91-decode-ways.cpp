@@ -1,31 +1,26 @@
 class Solution {
 public:
-    
-    
-    int helper(int i, string &s, vector<int>&dp){
-        if(i>=s.size()) return 1 ;
-        if(dp[i] != -1) return dp[i] ;
-        int ans = 0 ;
-        int op1 = s[i] - '0' , op2 = 0 ;
+    int numDecodings(string s) {
         
-        if(i<s.size()-1){
-            op2 = op1*10 + (s[i+1] - '0') ;
+        
+        int n = s.size() ;
+        vector<int>dp(n+1) ;
+        
+        dp[0] = 1 ;
+        dp[1] = s[0] == '0'? 0 : 1 ;
+        
+        for(int i = 2 ; i <= n ; i++){
+            
+            dp[i] = 0 ;
+            //Only Last Char 
+            if(s[i-1] > '0' && s[i-1] <= '9') 
+                dp[i] += dp[i-1] ;
+            //Last two Char 
+            if(s[i-2] == '1' || s[i-2] == '2' && s[i-1] <= '6') 
+                dp[i] += dp[i-2] ;
             
         }
         
-        if(op1>0) ans += helper(i+1,s,dp) ;
-        
-        if(op1>0 && op2>0 && op2<=26) ans+= helper(i+2,s,dp) ;
-        
-        dp[i] = ans;
-        
-        return dp[i] ;
-    }
-    
-     
-    
-    int numDecodings(string &s) {
-       vector<int> dp(s.size(),-1) ;
-       return helper(0,s,dp) ;   
+        return dp[n] ;
     }
 };

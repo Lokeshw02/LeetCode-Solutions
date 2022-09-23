@@ -1,37 +1,57 @@
 class Solution {
 public:
     
-    int robHelper(vector<int>&nums,int startIdx, int endIdx,vector<int>&dp){
-
-      
-       if(startIdx>endIdx) return 0;
-     
-       if(dp[startIdx] != -1) return dp[startIdx];
-      
-       int  money1 = nums[startIdx]+robHelper(nums,startIdx+2,endIdx,dp);
-       
-       int money2 = robHelper(nums,startIdx+1,endIdx,dp);
-      
-       dp[startIdx] = max(money1,money2);
-        return dp[startIdx];
-   }
+    int helper1(vector<int>& nums,vector<int>&dp, int i){
+        
+        if(i >= nums.size() -1 )
+            return 0 ;
+        
+        if(dp[i] != -1) 
+            return dp[i] ;
+        
+        //Include 
+        int amount1 = nums[i] + helper1(nums,dp,i+2) ;
+        
+        int amount2 = helper1(nums,dp,i+1) ;
+        
+        return dp[i] = max(amount1,amount2) ;
+        
+        
+    }
     
+     int helper2(vector<int>& nums,vector<int>&dp, int i){
+        
+        if(i >= nums.size()  )
+            return 0 ;
+        
+        if(dp[i] != -1) 
+            return dp[i] ;
+        
+        //Include 
+        int amount1 = nums[i] + helper2(nums,dp,i+2) ;
+        
+        int amount2 = helper2(nums,dp,i+1) ;
+        
+        return dp[i] = max(amount1,amount2) ;
+        
+        
+    }
     
     
     int rob(vector<int>& nums) {
+        //0 t0 n-2 
+        //1 to n-1  
         
-         int n = nums.size() ;
-        if(n==1) return nums[0] ;
-   
+        int n = nums.size() ;
         
-    vector<int>dp(nums.size(),-1) ;
-       
+        if(n == 1) return nums[0] ;
         
-        int r1 = robHelper(nums,0,n-2,dp) ;
-         fill(dp.begin(), dp.end(), -1);
-        int r2 = robHelper(nums,1,n-1,dp) ;
+        vector<int>dp1(n,-1) ; 
+        vector<int>dp2(n,-1) ; 
         
-     return max(r1,r2);
+        return max(helper1(nums,dp1,0), helper2(nums,dp2,1)) ;
+        
+        
         
     }
 };

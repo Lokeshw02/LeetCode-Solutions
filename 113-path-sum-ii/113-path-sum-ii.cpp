@@ -17,20 +17,22 @@ public:
         
         if(!root) return ;
         
-         curr.push_back(root->val) ;
+         curr.push_back(root->val) ; 
+        
+        targetSum -= root->val ;
         
         if(root->left == NULL && root->right == NULL ){
             
-            if(targetSum == root->val)
+            if(targetSum == 0)
             res.push_back(curr) ;
         
         }
         
       
         
-        helper(root->left,targetSum - root->val, curr, res) ; 
+        helper(root->left,targetSum , curr, res) ; 
         
-        helper(root->right,targetSum - root->val, curr, res) ;
+        helper(root->right,targetSum, curr, res) ;
         
         curr.pop_back() ;
         

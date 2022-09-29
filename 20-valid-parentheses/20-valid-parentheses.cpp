@@ -1,46 +1,41 @@
 class Solution {
 public:
     bool isValid(string s) {
+        stack<char> stk  ; 
         
-       // stack<char> stk ;
-       for(int i = 0; i < s.length(); i++){
+        
+        for(int i = 0; i < s.size() ; i++){
             
-            if(s.length() == 0)
-                return true;
-            
-            if(s[0] == ')' || s[0] == ']' || s[0] == '}')
-                return false;
-            if(s.back() == '(' || s.back() == '[' || s.back() == '{')
-                return false;
-            
-            if(s[i] == ')'){
-                if(s[i-1] == '('){
-                   
-                    s.erase(i-1,2);
-                    i = 0;
+            if(s[i] == '(' || s[i]== '{' || s[i] == '[') 
+                stk.push(s[i]) ; 
+            else {
+                
+                if(!stk.empty()){
+                    char t= stk.top() ;
+                
+                if(s[i] == ')' && t != '(') 
+                    return false ;
+                 if(s[i] == '}' && t != '{') 
+                    return false ;
+                if(s[i] == ']' && t != '[') 
+                    return false ;
+                 stk.pop() ;
                 }
+                
+                else
+                    return false ;
+                
+             
             }
-            else if(s[i] == ']'){
-                if(s[i-1] == '['){
-                    //s.erase(i,1);
-                     s.erase(i-1,2);
-                    i = 0;
-                }
-            }
-            else if(s[i] == '}'){
-                if(s[i-1] == '{'){
-                   // s.erase(i,1);
-                    s.erase(i-1,2);
-                    i = 0;
-                }
-            }
+           
+           
         }
-
-    if(s.length() > 0)
-        return false;
         
-    else
-        return true;
+        if(!stk.empty()) 
+            return false ;
+        
+        
+        return true ;
         
     }
 };

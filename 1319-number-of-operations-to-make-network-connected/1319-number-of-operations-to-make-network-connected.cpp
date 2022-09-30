@@ -1,64 +1,64 @@
-class ds {
+class ds{
+    private :
+    int total ;
+    vector<int>parent; 
+    int num_groups ;
     
-    public : 
+    public :
     
-    ds(int n){
-        num_items = n ;
+     ds(int n){
+        total = n ;
         num_groups = n ;
         
-        for(int i = 0; i < n; i++){
-            parent_.push_back(i) ;
+        for(int i = 0 ; i < n ; i++){
+            parent.push_back(i) ;
         }
     }
     
-    int find(int u){
-        while(u != parent_[u])
-            u = parent_[u] ;
-        
+    int find(int u ){
+        while(u != parent[u]){
+            u = parent[u] ;
+        }
         
         return u ;
     }
     
-    void union_(int u, int v){
+    void merge(int u, int v){
         int g1 = find(u) ;
         int g2 = find(v) ;
-    
-        parent_[g2] = g1 ;
-        num_groups -- ;
         
+        parent[g2] = g1 ;
+        num_groups-- ;
     }
     
-    int getGroupCount(){
-        return num_groups ; 
+    int getnum_groups(){
+        return num_groups ;
     }
-    
-    private :
-    int num_items ;
-    vector<int>parent_ ;
-    int num_groups ;   
-} ;
+};
+
+
 
 class Solution {
 public:
     int makeConnected(int n, vector<vector<int>>& connections) {
         
         ds uf(n) ;
-        int extra_edge = 0 , group_count = 0 ;
+        int extra_edge = 0, num_of_groups = 0 ;
         
-        for(int i = 0; i< connections.size() ; i++){
+        for(int i = 0 ; i < connections.size() ; i++){
+            
             int g1 = uf.find(connections[i][0]) ;
             int g2 = uf.find(connections[i][1]) ;
             
-            if(g1 == g2)
+            if(g1 == g2 )
                 extra_edge++ ;
             else
-                uf.union_(connections[i][0], connections[i][1]) ;
+                uf.merge(g1,g2) ;
+                
         }
-        group_count = uf.getGroupCount() ;
+        num_of_groups = uf.getnum_groups() ;
         
-        if(extra_edge >= group_count -1)
-            return group_count -1 ;
-        else 
-            return -1 ; 
+        return extra_edge >= num_of_groups -1 ? num_of_groups -1 : -1 ;
+        
     }
 };

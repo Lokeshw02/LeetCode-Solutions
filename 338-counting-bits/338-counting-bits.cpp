@@ -11,7 +11,7 @@ public:
         res.push_back(0) ;
         
         for(int i = 1; i <= n ;i++){
-            res.push_back(res[i&(i-1)] +1 ) ;
+            res.push_back(  res[i&(i-1)] +1  ) ;
         }
         return res ;
     }

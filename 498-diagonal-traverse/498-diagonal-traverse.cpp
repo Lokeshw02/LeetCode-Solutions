@@ -12,33 +12,38 @@ public:
         while(row < m && col < n ){
             //If diagobal is going up 
             if(up){
-                while(row>0 && col < n-1){
+                
+                while(row >0 && col < n-1){
                     res[i++] = mat[row][col] ;
-                    row--;
-                    col++ ;
+                    row--;col++ ;
                 }
-                res[i++] = mat[row][col] ;
-                if(col == n-1){
+                 res[i++] = mat[row][col] ;
+                
+                
+               if(col == n-1){
                     row++ ;
                 }
                 else{
                     col++ ;
                 }
+                
+                
             }
               //If diagonal is going down 
             else {
-                
-                while(col>0 && row < m-1){
+                while(col > 0 && row < m-1 ){
                     res[i++] = mat[row][col] ;
-                    row++;col-- ;
+                    row++; col-- ;
                 }
                 res[i++] = mat[row][col] ;
-                if(row == m-1){
+                
+               if(row == m-1){
                     col++ ;
                 }
                 else{
                     row++ ;
                 }
+               
             }
             
             

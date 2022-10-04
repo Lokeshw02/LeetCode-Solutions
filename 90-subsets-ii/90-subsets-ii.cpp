@@ -1,41 +1,37 @@
 class Solution {
 public:
     
-    void helper(vector<int>& nums, vector<vector<int>>& res,  vector<int> &temp, int i, bool prev){
+    void helper(vector<int>&nums, vector<int>&curr, vector<vector<int>>&res, int idx, bool ignore){
         
-        if(i >= nums.size()){
-            res.push_back(temp) ;
+        if(idx >= nums.size()){
+            res.push_back(curr) ;
             return ;
         }
         
-        //Include 
-        temp.push_back(nums[i]) ;
+        //include Exclude 
+        curr.push_back(nums[idx] ) ; 
+        helper(nums,curr,res,idx+1,false) ;
         
-        helper(nums,res,temp,i+1,false) ;
+         curr.pop_back() ;
+        //Exclude 
         
-        temp.pop_back() ;
-        
-        if(i > 0 && nums[i] == nums[i-1] && !prev)
+        if(idx>0 && nums[idx] == nums[idx-1] && !ignore) 
             return ;
-        //Exclude
+       
         
-        helper(nums,res,temp, i+1, true) ;
+        helper(nums,curr,res,idx+1,true) ;
         
-        
+       
     }
     
     
-    
-    
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-       vector<vector<int>>res;
-        vector<int> temp ;
-        sort(nums.begin(), nums.end()) ;
+        sort(nums.begin(),nums.end()) ;
+        vector<int>curr; vector<vector<int>>res ;
         
-        helper(nums,res,temp,0,false) ;
+        helper(nums,curr,res,0,false) ;
         
         return res ;
-        
         
     }
 };

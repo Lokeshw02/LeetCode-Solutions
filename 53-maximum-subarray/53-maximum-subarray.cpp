@@ -4,7 +4,7 @@ public:
         
        int n = nums.size() ;
      
-       int prev = nums[0], curr, res = nums[0] ; 
+       int prev = nums[0], curr = nums[0], res = nums[0] ; 
         
         for(int i =1 ; i < n ; i++){
         

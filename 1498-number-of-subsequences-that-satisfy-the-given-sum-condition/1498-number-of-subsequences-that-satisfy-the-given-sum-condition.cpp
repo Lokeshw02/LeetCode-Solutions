@@ -20,7 +20,7 @@ public:
             else
                 j--;
         }
-        return res;
+        return res%mod;
         
     }
 };

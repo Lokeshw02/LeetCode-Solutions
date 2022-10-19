@@ -2,7 +2,7 @@ class Solution {
 public:
     int minMoves(vector<int>& nums, int k) {
         /////
-        long result=2147483647;
+        long result=LONG_MAX ;
 	vector<int> total; //to store indices of all 1s
 	for(int i=0;i<nums.size();i++)
 		if(nums[i]==1) total.push_back(i);

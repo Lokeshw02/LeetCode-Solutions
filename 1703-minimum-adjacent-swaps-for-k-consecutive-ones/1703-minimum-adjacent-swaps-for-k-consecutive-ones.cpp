@@ -2,24 +2,77 @@ class Solution {
 public:
     int minMoves(vector<int>& nums, int k) {
         /////
-        long result=LONG_MAX ;
-	vector<int> total; //to store indices of all 1s
-	for(int i=0;i<nums.size();i++)
-		if(nums[i]==1) total.push_back(i);
-			
-	int n=total.size();
-	vector<long> s={0}; //to store the prefix sum of the indices of 1s
-	for(int i=0;i<n;i++)
-		s.push_back(s.back()+total[i]);
-
-	for(int i=k/2;i<n-(k-1)/2;i++)
-	{
-		long current=k/2*total[i]-(s[i]-s[i-k/2])-k/2*(k/2+1)/2; //calculate the distances to combine all left k/2 1s with the median value
-		current+=s[i+1+(k-1)/2]-s[i+1]-(k-1)/2*total[i]-(k-1)/2*((k-1)/2+1)/2; //to calculate the distances to combine all right (k-1)/2 1s with the median value
-		result=min(result,current);
-	}
-	return result;
-
+       vector<int>Ones;
+        // Take All one's indexies
+        for(int i=0;i<nums.size();i++)
+            if(nums[i])
+                Ones.push_back(i);
+        
+        int i=0;
+        int j=0;
+        int ans=INT_MAX;
+        int left_part;
+        int right_part;
+        int left;
+        int right;
+        
+        
+        // Caculate For No of Swaps
+        if(k%2)
+        {   left=k/2;
+            right=k/2;
+            left_part=((k/2)*(k/2+1))/2;
+            right_part=left_part;
+        }
+        else
+        {
+            int a=k/2;
+            left=a-1;
+            right=a;
+            left_part=((a-1)*(a))/2;
+            right_part=((a)*(a+1))/2;
+        }
+        
+        
+        int median=(k-1)/2;
+        int sum=0;
+        int prev_median=(k-1)/2;
+        int shift_value;
+        
+        
+        // create a window of size 'k'
+        while(j-i+1<k)
+        {
+            // Do Pre-Calculation
+            sum+=abs(Ones[j]-Ones[i+median]);
+            
+            j++;   
+        }
+        
+        
+        // Apply Fix size sliding window with median concept
+        while(j<Ones.size())
+        {
+            shift_value=abs(Ones[median+i]-Ones[prev_median]);
+            shift_value=shift_value*left-(shift_value*(right));
+            
+               // Do Pre-Calculation
+            sum+=abs(Ones[j]-Ones[i+median])+shift_value;
+            
+            // Store result
+            ans=min(ans,sum-left_part-right_part);
+            
+            // Remove Calculation for i
+            sum-=abs(Ones[i]-Ones[i+median]);
+            prev_median=i+median;
+            
+            // Slide the window with maintaining the size of window
+            i++;
+            j++;
+        }
+        
+        
+        return ans;
         ////
     }
 };

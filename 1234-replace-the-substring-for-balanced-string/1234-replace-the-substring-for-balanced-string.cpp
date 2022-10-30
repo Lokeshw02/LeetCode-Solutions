@@ -1,11 +1,10 @@
 class Solution {
 public:
     int balancedString(string s) {
-        
         int n = s.size();
         int k = n/4 ; 
         int ans = INT_MAX ;
-        unordered_map<int,int> m ;
+        unordered_map<char,int> m ;
         
         for(char c: s){
             m[c]++ ;

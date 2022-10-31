@@ -1,37 +1,32 @@
 class Solution {
 public:
     
-    int helper(vector<int>& nums, int idx, vector<int>&dp) {
+    int helper(vector<int>& nums,vector<int>&dp, int i, int n){
         
-       
-        if(idx >= nums.size()) 
-            return 0 ;
-        
-         if(idx == nums.size() -1) 
+        if(i == n-1 ) 
             return 1 ;
+        if(i >= n) 
+            return 0 ;
+        if(dp[i] != -1) 
+            return dp[i] ;
         
-        if(dp[idx] != -1) 
-            return dp[idx] ;
+        int k = nums[i] ;
         
-        int k = nums[idx] ;
-        
-        for(int i = 1 ; i <= k ; i++){
+        for(int j = 1; j <= k ; j++){
             
-            if(helper(nums,idx+i,dp) )
+            if(helper(nums,dp,i+j,n)) 
                 return dp[i] = 1 ;
         }
         
-        return dp[idx]= 0 ;
+        return dp[i] = 0 ;
     }
     
+    
     bool canJump(vector<int>& nums) {
-        
         int n = nums.size() ;
-        
         vector<int>dp(n,-1) ;
         
-        return helper(nums,0,dp) ;
-        
+        return helper(nums,dp,0,n) ;
         
         
     }

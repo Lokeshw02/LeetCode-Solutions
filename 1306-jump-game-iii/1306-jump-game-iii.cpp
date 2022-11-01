@@ -22,7 +22,7 @@ public:
         int n = arr.size() ;
        // memset(dp,-1,sizeof(dp)); 
         
-        vector<int>dp(500005,-1) ;
+        vector<int>dp(n+1,-1) ;
         return helper(arr,start,n,dp);
     }
 };

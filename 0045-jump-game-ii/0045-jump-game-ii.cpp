@@ -5,7 +5,7 @@ public:
         if(i >= nums.size() -1) 
             return 0 ;
         
-        if(dp[i] != 10001)
+        if(dp[i] != INT_MAX-1)
             return dp[i] ;
         
         for(int j =1 ; j <= nums[i] ; j++){
@@ -19,7 +19,7 @@ public:
     int jump(vector<int>& nums) {
         
         int n = nums.size() ;
-        vector<int>dp(n,10001) ; 
+        vector<int>dp(n,INT_MAX-1) ; 
         
         return helper(nums,dp,0) ;
         

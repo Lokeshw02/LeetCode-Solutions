@@ -4,10 +4,10 @@ public:
     
     void merge(int u, int v){
         
-        // int g1 = find(u) ;
-        // int g2 = find(v) ;
+        int g1 = find(u) ;
+        int g2 = find(v) ;
         
-        parent[v] = u ;
+        parent[g2] = g1 ;
     }
     
     int find(int u){

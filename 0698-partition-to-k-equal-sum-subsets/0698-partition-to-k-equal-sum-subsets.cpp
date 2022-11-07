@@ -1,43 +1,49 @@
 class Solution {
 public:
-    bool canPartitionKSubsets(vector<int>& nums, int k) {
-         int n=nums.size();
-        int mask=(1<<n),sum=0;
-        vector<bool>dp(mask,false);
-        for(int i=0;i<n;i++)
-            sum+=nums[i];
+    
+    
+    
+    bool helper(vector<int>& nums, vector<bool>& visited,int i, int currsum, int target, int k){
         
-        if(sum%k!=0)
-            return false;
-        sum/=k;
-        sort(nums.begin(),nums.end());
-        if(nums[n-1]>sum)
-            return false;
-        vector<int>total(mask,0);
-        dp[0]=true;
-        for(int i=0;i<mask;i++)
-        {
-            if(dp[i])
-            {
-                for(int j=0;j<n;j++)
-                {
-                    int temp=i|(1<<j);
-                    if(temp!=i)
-                    {
-                        if(nums[j]<=sum-(total[i]%sum))
-                        {
-                            dp[temp]=true;
-                            total[temp]=nums[j]+total[i];
-                        }
-                        else
-                            break;
-                    }
-                }
-            }
+        if(k ==1 ) 
+            return true ;
+        
+        if(i >= nums.size()) 
+            return false ;
+        if(currsum == target)
+            return helper(nums,visited,0,0,target,k-1) ;
+        
+        
+        for(int j = i ; j < nums.size() ; j++){
+            
+            if(visited[j] || currsum + nums[j] > target) continue ;
+            
+            visited[j] = true ;
+            
+            if(helper(nums,visited,j +1 , currsum + nums[j], target,k)) 
+                return true ;
+            
+            visited[j] = false ;
         }
-         return dp[mask-1];
-
-
         
+       return false ;
+    }
+    
+    
+    bool canPartitionKSubsets(vector<int>& nums, int k) {
+     
+        int n = nums.size() ; 
+        vector<bool>visited(n,false) ;
+        
+        int sum = 0 ;
+        
+        for(int x : nums) 
+            sum += x ;
+        
+        if(n < k || sum%k != 0) 
+            return false ;
+        
+            return helper(nums,visited,0,0,sum/k,k) ;
+    
     }
 };

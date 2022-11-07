@@ -35,6 +35,8 @@ public:
         int n = nums.size() ; 
         vector<bool>visited(n,false) ;
         
+        sort(nums.begin(), nums.end(), greater<int>()) ;
+        
         int sum = 0 ;
         
         for(int x : nums) 

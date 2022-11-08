@@ -11,7 +11,7 @@ public:
             k += 1;
         }
         int ans = (k+1) * (k+1) + dp(boxes, l+1, r, 0); // Remove all boxes which has the same with `boxes[l]`
-        for (int m = l + 1; m <= r; ++m) // Try to merge non-contiguous boxes of the same color together
+        for (int m = l + 1; m <= r; m++) // Try to merge non-contiguous boxes of the same color together
             if (boxes[m] == boxes[l])
                 ans = max(ans, dp(boxes, m, r, k+1) + dp(boxes, l+1, m-1, 0));
         return memo[lOrg][r][kOrg] = ans;

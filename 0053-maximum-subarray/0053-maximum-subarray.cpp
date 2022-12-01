@@ -9,7 +9,7 @@ public:
       //  dp[0] = nums[0] ;
         int prevsum = nums[0] ;
         int ans = nums[0] ;
-        int  currsum = nums[0] ;
+        int  currsum ;
         
         for(int i = 1 ;  i < n ; i++){
             
